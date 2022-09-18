@@ -1,0 +1,23 @@
+<html>
+<head>
+    <title>Widget</title>
+</head>
+<body>
+<button id="test"></button>
+
+<script>
+    window.onload = init;
+
+    function clicked() {
+        // some logic
+    }
+
+    function init() {
+        document.getElementById('test').addEventListener('click', clicked, false);
+    }
+
+    export {clicked}
+</script>
+
+</body>
+</html>
