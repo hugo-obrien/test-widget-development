@@ -1,35 +1,35 @@
 (function () {
-    const container = document.querySelector(".auth-widget-container");
-    var state = document.currentScript.getAttribute("state");
+    globalUrl = 'http://localhost:8080';
+    state = document.currentScript.getAttribute("state");
 
-    const appleSignButton = document.createElement("button");
-    appleSignButton.innerText = "Sign in with apple id";
-    appleSignButton.addEventListener("click", () => {
-        appleIdSignIn(state);
-    });
-
-    container.append(appleSignButton);
+    appleSignInButtonInit();
 })();
+
+function appleSignInButtonInit() {
+    const buttonContainer = document.querySelector(".apple-widget");
+    const divButton = document.createElement("div");
+    divButton.addEventListener("click", () => {
+        appleIdSignIn(state);
+    })
+    buttonContainer.append(divButton);
+
+    const logo = document.createElement("img");
+    logo.src = globalUrl + "/icons/apple/button-default.png";
+    divButton.appendChild(logo);
+}
 
 async function appleIdSignIn(state) {
     console.log("appleIdSignIn: Begin with state: " + state);
-    var url = 'http://localhost:8080/auth/sign-in?state='+state;
-    console.log("appleIdSignIn: Url: " + url);
+    const url = globalUrl + '/auth/';
 
-    location.href = url;
+    console.log("appleIdSignIn: Const URL: " + url);
 
-    /*await fetch(url, {
-        mode: 'no-cors',
-        method: 'get'
-    });*/
+    var fullLink = buildUrl(url, state);
+    console.log("appleIdSingIn: Build URL: " + fullLink);
+
+    location.href = fullLink;
 }
 
-async function authTest(state) {
-    console.log("Sign in with apple id. State is: ", state);
-
-    const response = await fetch('http://localhost:8080/auth/');
-
-    response.text().then(function (text) {
-        console.log("Response text: " + text);
-    })
+function buildUrl(url, state) {
+    return url + '?state=' + state;
 }
